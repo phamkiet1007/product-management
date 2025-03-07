@@ -1,0 +1,83 @@
+extends ../../layouts/default.pug
+
+block main
+    h1 PRODUCTS LIST
+
+    .card.mb-3 
+        .card-header Filter and Search
+        .card-body
+            .row
+                .col-6
+                    each item in filterStatus
+                        button(
+                            class=`btn btn-sm ml-1 btn-outline-success ${item.class}`
+                            btn-status = item.status
+                        ) #{item.name}
+                .col-6 
+                    form(id = "form-search")
+                        .input-group
+                            input(
+                                type="text"
+                                placeholder="Search for..."
+                                name="keyword"
+                                class="form-control"
+                                value = keyword
+                            )
+                            .input-group-append
+                                button(
+                                    class="btn btn-success"
+                                    type="submit"
+                                ) Search
+
+
+    .card.mb-3 
+        .card-header List of products
+        .card-body
+            table.table.table-hover.table-sm 
+                thead 
+                    tr 
+                        th STT 
+                        th Hình ảnh
+                        th Tiêu đề 
+                        th Giá 
+                        th Trạng thái 
+                        th Hành động
+
+                tbody 
+                    each product, index in products
+                        tr
+                            td #{index + 1}
+                            td 
+                                img(
+                                    src= product.thumbnail
+                                    alt= product.title
+                                    width="100px"
+                                    height= "auto"
+                                )
+                            td #{product.title}
+                            td #{product.price}$
+                            td  
+                                if(product.status == "active")
+                                    a(href="#" class ="badge bg-success") Active
+                                else 
+                                    a(href="#" class ="badge bg-danger") Inactive
+                            td 
+                                button(class="btn btn-warning btn-sm") Edit 
+                                button(class="btn btn-danger btn-sm ml-1") Delete
+
+            //- tr
+            //-     td 2
+            //-     td 
+            //-         img(
+            //-             src="https://cdn.dummyjson.com/products/images/mobile-accessories/Apple%20Airpods/thumbnail.png"
+            //-             alt="Sản phẩm 2"
+            //-             width="100px"
+            //-             height= "auto"
+            //-         )
+            //-     td Sản phẩm 2
+            //-     td 150$
+            //-     td
+            //-         a(href="#" class = "badge bg-danger") Stop working
+            //-     td 
+            //-         button(class="btn btn-warning btn-sm") Edit 
+            //-         button(class="btn btn-danger btn-sm ml-1") Delete
